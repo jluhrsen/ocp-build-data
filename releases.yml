@@ -1,4 +1,67 @@
 releases:
+  4.21.14:
+    assembly:
+      type: standard
+      basis:
+        assembly: 4.21.13
+        reference_releases!: {}
+      group:
+        advisories:
+          rpm: -1
+          rhcos: -1
+        shipment:
+          advisories:
+            - kind: image
+        release_date: 2026-May-07
+        upgrades: 4.20.15,4.20.16,4.20.17,4.20.18,4.20.19,4.20.20,4.21.0,4.21.1,4.21.2,4.21.3,4.21.4,4.21.5,4.21.6,4.21.7,4.21.8,4.21.9,4.21.10,4.21.11,4.21.13
+        dependencies:
+          rpms:
+            - el9: kernel-5.14.0-570.112.1.el9_6
+              why: Pin kernel for CVE-2026-31431
+              non_gc_tag: hotfix
+      rhcos:
+        rhel-coreos:
+          images:
+            x86_64: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:39ac9182a2fa79bec82842aed2536345391d1e906ef86901f9874fe5b103834d
+            aarch64: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:d68c6f2ca66b44168e7224956705ce93b94eb921c4351b19755076f0c30841ab
+            s390x: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:378f26c3cc338ae184975fd78eb09c367777a87039beb603d9be74ad0d795784
+            ppc64le: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:4b7b474d0a486329c76e6247450322383977cfc0544fc2b1e67096a2a680e942
+        rhel-coreos-extensions:
+          images:
+            x86_64: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:8c5f30f4e9725509e41b9448abda554e5ddcf346eb468bfca572af7477a19d7b
+            aarch64: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:73cebd9c66b50cd24c59ff270d8415fb8e42573aedcef3d06a5ce53936f3aeba
+            s390x: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:272787fc5b2175f7a08327dab81a9dca70df5e01ff67b735b070a60c603622ed
+            ppc64le: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:d47c18487ca0734619e12a4219ff8079e3e0284e75033e090fc3adcfe58a4397
+      members:
+        rpms:
+          - distgit_key: kernel
+            why: Pin kernel to 5.14.0-570.112.1.el9_6 for CVE-2026-31431
+            metadata:
+              is:
+                el9: kernel-5.14.0-570.112.1.el9_6
+          - distgit_key: openshift
+            why: Pin openshift RPM
+            metadata:
+              is:
+                el8: openshift-4.21.0-202604030310.p2.gdfffacd.assembly.stream.el8
+                el9: openshift-4.21.0-202604030310.p2.gdfffacd.assembly.stream.el9
+                el10: openshift-4.21.0-202604030310.p2.gdfffacd.assembly.stream.el10
+        images:
+          - distgit_key: driver-toolkit
+            why: Pin DTK to match RHCOS kernel 5.14.0-570.112.1.el9_6 for CVE-2026-31431
+            metadata:
+              is:
+                nvr: driver-toolkit-container-v4.21.0-202605041749.p2.gf0ae9d1.assembly.stream.el9
+      permits:
+        - code: CONFLICTING_INHERITED_DEPENDENCY
+          component: dpu-intel-ipu-vsp
+        - code: CONFLICTING_INHERITED_DEPENDENCY
+          component: ironic
+        - code: CONFLICTING_INHERITED_DEPENDENCY
+          component: ironic-rhcos-downloader
+      issues:
+        include:
+          - id: OCPBUGS-84791
   4.21.13:
     assembly:
       type: standard
